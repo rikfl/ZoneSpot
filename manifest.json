@@ -1,0 +1,85 @@
+{
+  "name": "ZoneSpot",
+  "short_name": "ZoneSpot",
+  "start_url": "https://rikflink.nl/zonespot/",
+  "scope": "https://docs.pwabuilder.com",
+  "id": "ZoneSpot-1",
+  "lang": "nl",
+  "dir": "ltr",
+  "description": "Een persoonlijke PWA om parkeerzone informatie te tonen op basis van je locatie.",
+	"theme_color": "#f7f7f6",
+	"display": "minimal-ui",
+  "icons": [
+    {
+     "src": "https://rikflink.nl/zonespot/images/icon-192x192.png?v=5",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/icon-256x256.png?v=5",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/icon-384x384.png?v=5",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/icon-512x512.png?v=5",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/icon-1024x1024.png?v=5",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/icon.svg?v=5",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/icon-monochrome.svg?v=5",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
+    }
+  ],
+  "background_color": "#f7f7f6",
+  "orientation": "portrait",
+  "prefer_related_applications": false,
+  "categories": [
+    "utilities"
+  ],
+  "screenshots" : [
+    {
+      "src": "https://rikflink.nl/zonespot/images/screenshot1.jpg",
+      "sizes": "642x1389",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "platform": "itunes"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/screenshot2.png",
+      "sizes": "520x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "platform": "chrome_web_store"
+    },
+    {
+      "src": "https://rikflink.nl/zonespot/images/screenshot3.jpg",
+      "sizes": "1440x900",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "platform": "itunes"
+    }
+  ]
+}
