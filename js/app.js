@@ -12,10 +12,13 @@ const STRINGS = {
   locationUnavail:  "Lokatie niet beschikbaar.",
   free:             "Gratis",
   retry:            "↻ Opnieuw proberen",
+  pullRefresh:      "Vernieuwen",
 };
 
 document.getElementById('map').style.height = window.screen.height + 'px';
 document.getElementById('time').textContent = STRINGS.loading;
+
+let currentMarker = null;
 
 const map = L.map("map", {
   zoomControl: false,
@@ -45,18 +48,25 @@ document.getElementById("retry-btn").onclick = () => {
   getParking();
 };
 
+let isFetching = false;
+
 async function getParking() {
+  if (isFetching) return;
+  isFetching = true;
   navigator.geolocation.getCurrentPosition(async (pos) => {
     try {
-      const lat = USE_DUMMY_COORDS ? DUMMY_COORDS.latitude : pos.coords.latitude;
-      const lng = USE_DUMMY_COORDS ? DUMMY_COORDS.longitude : pos.coords.longitude;
+      const lat = USE_DUMMY_COORDS ? DUMMY_COORDS.latitude : USE_DUMMY_COORDS ? DUMMY_COORDS.latitude : pos.coords.latitude;
+      const lng = USE_DUMMY_COORDS ? DUMMY_COORDS.longitude : USE_DUMMY_COORDS ? DUMMY_COORDS.longitude : pos.coords.longitude;
       map.setView([lat, lng], 16);
-      L.marker([lat, lng]).addTo(map);
+      if (currentMarker) currentMarker.remove();
+      currentMarker = L.marker([lat, lng]).addTo(map);
 
       // First endpoint
+      // console.time("fetch-zone");
       const zoneRes = await fetch(
         `https://cloud.prettigparkeren.nl/PrettigParkeren/v6/zoneBySector?lat=${lat}&lng=${lng}&api_key=${API_KEY}`
       );
+      // console.timeEnd("fetch-zone");
 
       if (!zoneRes.ok) throw new Error(STRINGS.zoneLookupFailed);
       const zoneData = await zoneRes.json();
@@ -119,10 +129,13 @@ async function getParking() {
       }
     } catch (err) {
       showError("Error: " + err.message, true);
+    } finally {
+      isFetching = false;
     }
   }, () => {
+    isFetching = false;
     showError(STRINGS.locationUnavail);
-  });
+  }, { enableHighAccuracy: true, maximumAge: 30000, timeout: 10000 });
 }
 
 function formatTime(t) {
@@ -141,3 +154,35 @@ async function start() {
 }
 
 start();
+
+// Re-fetch when app comes to foreground
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    getParking();
+  }
+});
+
+// Pull-to-refresh
+let touchStartY = 0;
+const PULL_THRESHOLD = 80;
+const pullIndicator = document.getElementById("pull-indicator");
+document.getElementById("pull-indicator-text").textContent = STRINGS.pullRefresh;
+
+document.addEventListener("touchstart", (e) => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener("touchmove", (e) => {
+  const pullDistance = e.touches[0].clientY - touchStartY;
+  if (window.scrollY === 0 && pullDistance >= 20) {
+    pullIndicator.classList.add("visible");
+  }
+}, { passive: true });
+
+document.addEventListener("touchend", (e) => {
+  pullIndicator.classList.remove("visible");
+  const pullDistance = e.changedTouches[0].clientY - touchStartY;
+  if (window.scrollY === 0 && pullDistance >= PULL_THRESHOLD) {
+    getParking();
+  }
+}, { passive: true });

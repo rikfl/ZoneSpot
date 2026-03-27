@@ -2,7 +2,7 @@
   "name": "ZoneSpot",
   "short_name": "ZoneSpot",
   "start_url": "https://rikflink.nl/zonespot/",
-  "scope": "https://docs.pwabuilder.com",
+  "scope": "https://rikflink.nl/zonespot/",
   "id": "ZoneSpot-1",
   "lang": "nl",
   "dir": "ltr",
