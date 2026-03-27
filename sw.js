@@ -1,4 +1,4 @@
-const CACHE_NAME = "zonespot-v4";
+const CACHE_NAME = "zonespot-v5";
 const STATIC_ASSETS = [
   "./",
   "index.html",
@@ -28,11 +28,6 @@ self.addEventListener("activate", (event) => {
     ).then(() => self.clients.claim())
   );
 });
-
-// self.addEventListener("fetch", (event) => {
-//   // DEBUG: always fetch from network, no caching
-//   event.respondWith(fetch(event.request));
-// });
 
 self.addEventListener("fetch", (event) => {
   // Let API calls go through the network; cache only static assets
