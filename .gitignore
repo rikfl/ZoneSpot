@@ -3,3 +3,10 @@ js/config.js
 # Local configuration file (sdk path, etc)
 local.properties
 .DS_Store
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
