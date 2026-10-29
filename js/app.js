@@ -31,7 +31,7 @@ const map = L.map("map", {
   boxZoom: false,
   keyboard: false,
 }).setView([52.0760895, 5.0941584], 16);
-L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png?api_key=" + API_KEY_CARTO, {
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png?key=" + API_KEY_CARTO, {
     attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors &copy; <a href="https://carto.com">CARTO</a>'
 }).addTo(map);
 
