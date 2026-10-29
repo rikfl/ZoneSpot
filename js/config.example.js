@@ -1,4 +1,4 @@
 const CONFIG = {
   API_KEY: "your_api_key_here",
-  API_KEY_CARTO: "CONFIG.API_KEY_CARTO"
+  API_KEY_CARTO: "your_api_key_carto_here"
 };
